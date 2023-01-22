@@ -8,16 +8,28 @@ import {
   View,
   Card,
 } from "@aws-amplify/ui-react";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import NavigationBar from './NavigationBar.js';
+import DaveForm from './DaveForm.js'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App({ signOut }) {
   return (
-    <View className="App">
+    /*<View className="App">
       <Card>
-        <Image src={logo} className="App-logo" alt="logo" />
-        <Heading level={1}>We now have Auth!</Heading>
+        <>
+          <NavigationBar />
+          <DaveForm />
+        </>
       </Card>
       <Button onClick={signOut}>Sign Out</Button>
-    </View>
+    </View>*/
+    <>
+      <NavigationBar authState={signOut}/>
+      <DaveForm />
+    </>
+    
   );
 }
 
