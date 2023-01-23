@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "paths": {
+    "/plot": {
+      "name": "/plot",
+      "lambdaFunction": "myreactlambdafunction",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}
