@@ -1,20 +1,5 @@
 {
-  "api": {
-    "apipyplotcharts": {
-      "dependsOn": [
-        {
-          "attributes": [
-            "Name",
-            "Arn"
-          ],
-          "category": "function",
-          "resourceName": "myreactlambdafunction"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "API Gateway"
-    }
-  },
+  "api": {},
   "auth": {
     "myreactappd3874760": {
       "customAuth": false,
