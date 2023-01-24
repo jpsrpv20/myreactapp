@@ -1,8 +1,10 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Plot from './Plot';
 
 function DaveForm() {
   return (
+    <>
     <Form>
       <Form.Group className="mb-3" controlId="formDataSet">
         <Form.Label>Upload a dataset</Form.Label>
@@ -20,6 +22,9 @@ function DaveForm() {
           <Button type="submit">Run</Button>
       </Form.Group>
     </Form>
+    <Plot />
+  </>
+    
   );
 }
 
