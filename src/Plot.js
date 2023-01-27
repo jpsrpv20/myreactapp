@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Doughnut } from "react-chartjs-2";
+import { Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+ } from "chart.js";
+import { Line } from "react-chartjs-2";
+import TestChart from './TestChart';
 //import MatPlotLibFig from './MatPlotLibFig';
 
 export default function Plot() {
@@ -23,6 +32,7 @@ export default function Plot() {
   const [responseData, setResponseData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [show,setShow] = useState(true);
 
   const html_code = `<style>
 
@@ -93,24 +103,67 @@ export default function Plot() {
       });
   }, []);*/
 
-  ChartJS.register(ArcElement, Tooltip, Legend);
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+  );
 
   useEffect(() => {
+    setLoading(true);
     fetch(
       `https://y23idbjig0.execute-api.us-west-1.amazonaws.com/test/fetchpyplotfigureresource`
     )
       .then((response) => response.json())
-      .then(setResponseData);
-  },[]);
-  if(responseData)
+      .then(setResponseData)
+      .then(() => setLoading(false))
+      .catch(setError);
+  },[show]);
+  if(loading){
+    console.log('Loading' + loading);
+    return(<p>Loading...</p>);
+  }
+  else if (error)
+  {
+    return <pre>{JSON.stringify(error)}</pre>
+  }
+  else {
+    console.log('Loading' + loading);
+    console.log(responseData);
+    console.log('Labels' + responseData[0]);
+    console.log('Data' + responseData[1]);
+    const data = {
+      labels: responseData[0],
+      datasets: [
+        {
+          label: 'Dataset 1',
+          data: responseData[1],
+          borderColor: 'rgb(255, 99, 132)',
+          backgroundColor: 'rgba(255, 99, 132, 0.5)'
+        }
+      ],
+    };
+
     return(
-      <div><Doughnut data={responseData} /></div>
+      //<TestChart />
+      <Line data={data} />
       
       //<div dangerouslySetInnerHTML={{ __html: html_code }} />
       //<pre>{JSON.stringify(responseData,null,2)}</pre>
       //<MatPlotLibFig fig_json={responseData}/>
     );
+    
+  }
 
+ 
+      
+      //<div dangerouslySetInnerHTML={{ __html: html_code }} />
+      //<pre>{JSON.stringify(responseData,null,2)}</pre>
+      //<MatPlotLibFig fig_json={responseData}/>
 
 
   /*return (

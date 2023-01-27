@@ -2,11 +2,14 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Plot from './Plot';
 import Plot2 from './Plot2';
+import TestChart from './TestChart';
+import React, { useState } from 'react';
 
 function DaveForm() {
+  const [isSubmitted, setSubmitted] = useState(false);
   return (
     <>
-    <Form>
+    <Form >
       <Form.Group className="mb-3" controlId="formDataSet">
         <Form.Label>Upload a dataset</Form.Label>
         <Form.Control type="file" />
@@ -20,10 +23,10 @@ function DaveForm() {
       </Form.Select>
 
       <Form.Group className="mt-3">
-          <Button type="submit">Run</Button>
+          <Button onClick={() => setSubmitted(true)}>Run</Button>
       </Form.Group>
     </Form>
-    <Plot />
+    {isSubmitted && <Plot />}
   </>
     
    //<Plot />
